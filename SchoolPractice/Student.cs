@@ -20,9 +20,48 @@ namespace SchoolPractice
             Gpa = gpa;
         }
 
-        public void Show()
+        public void AddGrade(int courseCredits, double grade)
         {
-            Console.WriteLine($"Student Status: {Name} (ID:{StudentId}) has {NumberOfCredits} credits and a {Gpa} GPA");
+            double totalQualityScore = Gpa * NumberOfCredits;
+            totalQualityScore += (courseCredits * grade);
+            NumberOfCredits += courseCredits;
+            Gpa = totalQualityScore / NumberOfCredits;
+        }
+
+
+        public string GetGradeLevel()
+        {
+            string gradeLevel = "";
+            if(NumberOfCredits >= 0 && NumberOfCredits < 30)
+            {
+                gradeLevel = "Freshman";
+            } else if (NumberOfCredits >=30 && NumberOfCredits < 60 )
+            {
+                gradeLevel = "Sophomore";
+            } else if (NumberOfCredits >=60 && NumberOfCredits < 90)
+            {
+                gradeLevel = "Junior";
+            } else if (NumberOfCredits >=90)
+            {
+                gradeLevel = "Senior";
+            }
+            return gradeLevel;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} (Credits: {NumberOfCredits}, GPA: {Gpa})";
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Student student &&
+                   StudentId == student.StudentId;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(StudentId);
         }
     }
 }

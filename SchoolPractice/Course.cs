@@ -19,13 +19,15 @@ namespace SchoolPractice
             Instructor = instructor;
         }
 
-        public void Show()
+        public override string ToString()
         {
-            Console.WriteLine($"------------------------\nCourse: {Title}\nInstructor: {Instructor.LastName},{Instructor.FirstName}\n------------------------\nStudent Roster\n------------------------\nName\tID\n----\t----");
+            StringBuilder courseString= new StringBuilder();
+            courseString.Append($"------------------------\nCourse: {Title}\nInstructor: {Instructor.LastName},{Instructor.FirstName}\n------------------------\nStudent Roster\n------------------------\nName\tID\n----\t----");
             foreach (Student student in students)
             {
-                Console.WriteLine($"{student.Name}\t{student.StudentId}");
+                courseString.Append($"{student.Name}\t{student.StudentId}");
             }
+            return courseString.ToString();
         }
 
         public void AddStudent(Student newStudent)
